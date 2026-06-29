@@ -1,5 +1,5 @@
 /*
-* Single Header basic linked list implementation
+* Single header linked list implementation
 */
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
@@ -8,24 +8,28 @@
 #include <stdlib.h>
 
 typedef struct Node_t Node;
-struct Node_t {
+struct Node_t
+{
     Node* next;
     int value;
 };
 
-typedef struct {
+typedef struct
+{
     Node* begin;
     Node* end;
 } List;
 
-Node* NodeAlloc(int value) {
+Node* NodeAlloc(int value)
+{
     Node* newnode = malloc(sizeof(Node));
     newnode->next = NULL;
     newnode->value = value;
     return newnode;
 }
 
-void ListAddEnd(List* ctx, int value) {
+void ListAddEnd(List* ctx, int value)
+{
     if (!ctx->end) {
         ctx->end = NodeAlloc(value);
         ctx->begin = ctx->end;
@@ -35,7 +39,8 @@ void ListAddEnd(List* ctx, int value) {
     ctx->end = ctx->end->next;
 }
 
-void ListAddBegin(List* ctx, int value) {
+void ListAddBegin(List* ctx, int value)
+{
     if (!ctx->begin) {
         ctx->begin = NodeAlloc(value);
         ctx->end = ctx->begin;
@@ -46,26 +51,27 @@ void ListAddBegin(List* ctx, int value) {
     ctx->begin->next = temp;
 }
 
-void ListFree(List* list) {
+void ListFree(List* list)
+{
     Node* node = list->begin;
     while (node) {
         Node* temp = node;
         node = node->next;
-        /* Uncomment to print */
-        // printf("%d\n", temp->value);
         free(temp);
     }
     list->begin = NULL;
     list->end = NULL;
 }
 
-void PrintList(List* list) {
-    printf("Priting List\n");
+void PrintList(List* list)
+{
+    printf("Printing List\n");
     Node* node = list->begin;
     while (node) {
         printf("%d\n", node->value);
         node = node->next;
     }
+    
 }
 
 #endif
